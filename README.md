@@ -102,7 +102,7 @@ Type a number 1–8 for pre-built legal queries:
 - Every response cites page and excerpt number
 - ⚠️ flags ambiguous or high-risk clauses
 - Model explicitly says when information is absent (no hallucination)
-- Temperature=0 ensures reproducible outputs
+- Temperature=0 ensures reproducible outputs 
 
 ---
 
