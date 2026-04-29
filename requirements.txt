@@ -1,0 +1,13 @@
+langchain
+langchain-anthropic
+langchain-community
+langchain-text-splitters
+anthropic
+pypdf
+sentence-transformers==3.4.1
+chromadb
+numpy==1.26.4
+torch==2.2.2
+transformers==4.47.1
+tokenizers==0.21.0
+streamlit>=1.35.0
