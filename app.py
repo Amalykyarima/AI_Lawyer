@@ -307,7 +307,19 @@ st.markdown('<p class="hero-title">AI Legal Document Analyser</p>', unsafe_allow
 st.markdown('<p class="hero-subtitle">Upload a legal document, then ask questions or use the quick query shortcuts.</p>', unsafe_allow_html=True)
 
 if not st.session_state.chain:
-    st.info("Upload a PDF in the sidebar to get started.")
+    st.markdown("""
+        <div style="
+            border: 1.5px dashed #d1d5db;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+        ">
+            <div style="font-size: 2rem">←</div>
+            <div style="font-weight: 500; color: #1a1a2e; margin-bottom: 0.3rem">Upload a document to get started</div>
+            <div style="font-size: 0.85rem">Click <strong>Browse files</strong> in the sidebar on the left</div>
+        </div>
+        """, unsafe_allow_html=True)
 else:
     # Chat history
     for item in st.session_state.history:
