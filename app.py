@@ -296,10 +296,18 @@ with st.sidebar:
             st.session_state._pending_query = q
 
     st.markdown("---")
-    st.markdown(
-        "<small style='color:#9ca3af'>MSc Thesis Project<br>AI-Powered Legal Analysis<br>RAG + LangChain + GPT-4o</small>",
-        unsafe_allow_html=True,
-    )
+    st.markdown("---")
+    st.markdown("""
+    <div style="font-size: 0.78rem; color: #6b7280; line-height: 1.7;">
+        <div style="font-weight: 500; color: #1a1a2e; margin-bottom: 0.4rem">🔒 Privacy & Data Notice</div>
+        <p>Documents you upload are processed <strong>in memory only</strong> and are never stored, saved, or logged on any server.</p>
+        <p>Your files are <strong>not used for AI training</strong>, not shared with third parties, and not retained after your session ends.</p>
+        <p>Queries are sent to the OpenAI API solely to generate your analysis. OpenAI's data handling is governed by their <a href="https://openai.com/policies/api-data-usage-policies" target="_blank" style="color:#1a1a2e">API data usage policy</a>.</p>
+        <p>This tool provides <strong>legal analysis only</strong> — not legal advice. Always consult a qualified solicitor for legal decisions.</p>
+        <hr style="border-color:#e5e5e0; margin: 0.6rem 0"/>
+        <p style="color:#9ca3af">MSc Thesis Project · AI-Powered Legal Analysis · RAG + LangChain + GPT-4o</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 # Main area
