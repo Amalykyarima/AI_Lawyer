@@ -1,13 +1,9 @@
 langchain
-langchain-anthropic
+langchain-openai
 langchain-community
 langchain-text-splitters
-anthropic
+openai
 pypdf
-sentence-transformers==3.4.1
+sentence-transformers
 chromadb
-numpy==1.26.4
-torch==2.2.2
-transformers==4.47.1
-tokenizers==0.21.0
-streamlit>=1.35.0
+streamlit
