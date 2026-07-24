@@ -1,5 +1,5 @@
 # ⚖️ Legal Document Analyser
-**MSc Thesis Project** — AI-Powered Legal Analysis using RAG + LangChain + Claude
+**Northumbria University Enterprise Edge Best Business Idea Winners (Personal Project)** — AI-Powered Legal Analysis using RAG + LangChain + Claude
 
 ---
 
