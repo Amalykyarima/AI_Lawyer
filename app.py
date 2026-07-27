@@ -7,6 +7,7 @@ import os
 import tempfile
 import streamlit as st
 from pathlib import Path
+from dotenv import load_dotenv
 
 from langchain_openai import ChatOpenAI
 from langchain_community.document_loaders import PyPDFLoader
@@ -16,6 +17,8 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
+
+load_dotenv()
 
 # ── Page config ────────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -243,10 +246,11 @@ def build_chain(file_bytes: bytes, filename: str):
             formatted.append(f"[Excerpt {i} — Page {page + 1}]\n{doc.page_content}")
         return "\n\n---\n\n".join(formatted)
 
-    api_key = os.environ.get("OPENAI_API_KEY") or st.secrets.get("OPENAI_API_KEY", "")
+    api_key = os.environ.get("API_KEY") or st.secrets.get("API_KEY", "")
 
     llm = ChatOpenAI(
-        model="gpt-4o",
+        model="llama-3.3-70b-versatile",
+        base_url="https://api.groq.com/openai/v1",
         temperature=0,
         max_tokens=2048,
         api_key=api_key,
@@ -302,10 +306,10 @@ with st.sidebar:
         <div style="font-weight: 500; color: #1a1a2e; margin-bottom: 0.4rem">🔒 Privacy & Data Notice</div>
         <p>Documents you upload are processed <strong>in memory only</strong> and are never stored, saved, or logged on any server.</p>
         <p>Your files are <strong>not used for AI training</strong>, not shared with third parties, and not retained after your session ends.</p>
-        <p>Queries are sent to the OpenAI API solely to generate your analysis. OpenAI's data handling is governed by their <a href="https://openai.com/policies/api-data-usage-policies" target="_blank" style="color:#1a1a2e">API data usage policy</a>.</p>
+        <p>Queries are sent to the Groq API solely to generate your analysis. Groq's data handling is governed by their <a href="https://groq.com/privacy-policy/" target="_blank" style="color:#1a1a2e">privacy policy</a>.</p>
         <p>This tool provides <strong>legal analysis only</strong> — not legal advice. Always consult a qualified solicitor for legal decisions.</p>
         <hr style="border-color:#e5e5e0; margin: 0.6rem 0"/>
-        <p style="color:#9ca3af">MSc Thesis Project · AI-Powered Legal Analysis · RAG + LangChain + GPT-4o</p>
+        <p style="color:#9ca3af">MSc Thesis Project · AI-Powered Legal Analysis · RAG + LangChain + Groq (Llama 3.3)</p>
     </div>
     """, unsafe_allow_html=True)
 

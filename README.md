@@ -1,5 +1,5 @@
 # ⚖️ Legal Document Analyser
-**Northumbria University Enterprise Edge Best Business Idea Winners (Personal Project)** — AI-Powered Legal Analysis using RAG + LangChain + Claude
+**Northumbria University Enterprise Edge Best Business Idea Winners (Personal Project)** — AI-Powered Legal Analysis using RAG + LangChain + Groq
 
 ---
 
@@ -28,7 +28,7 @@ PyPDFLoader → RecursiveCharacterTextSplitter (chunks)
      Legal Prompt Template
               │
               ▼
-     Claude claude-opus-4-5 (Anthropic API)
+     Llama 3.3 70B (Groq API, OpenAI-compatible)
               │
               ▼
      Structured Legal Analysis
@@ -38,14 +38,17 @@ PyPDFLoader → RecursiveCharacterTextSplitter (chunks)
 
 ## Setup
 
-### 1. Get your Anthropic API key
-Sign up at [console.anthropic.com](https://console.anthropic.com) and create an API key.
+### 1. Get a free Groq API key
+Sign up at [console.groq.com/keys](https://console.groq.com/keys) and create an API key.
 
-### 2. Set the environment variable
+### 2. Add it to a local `.env` file
 ```bash
-export ANTHROPIC_API_KEY='your-key-here'
+cp .env.example .env
+# then edit .env and set API_KEY=your-key-here
 ```
-Add this to your `~/.zshrc` or `~/.bash_profile` to persist it.
+`.env` is gitignored — it never gets committed. Never commit a real key to `.env.example`, `README.md`, or any other tracked file.
+
+For Streamlit Cloud deployment, don't use `.env` — instead add `API_KEY` under the app's **Settings → Secrets** in the Streamlit Cloud dashboard.
 
 ### 3. Install dependencies
 ```bash
@@ -88,7 +91,7 @@ Type a number 1–8 for pre-built legal queries:
 
 | Decision | Choice | Rationale |
 |----------|--------|-----------|
-| LLM | Claude claude-opus-4-5 | Superior legal reasoning; structured outputs |
+| LLM | Llama 3.3 70B (Groq) | Free tier, fast inference, strong structured outputs |
 | Embeddings | `all-MiniLM-L6-v2` | Free, local, no API cost; strong semantic similarity |
 | Vector Store | ChromaDB | Free, local, persistent across sessions |
 | Temperature | `0` | Deterministic — critical for legal accuracy |

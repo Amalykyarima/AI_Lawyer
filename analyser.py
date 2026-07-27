@@ -1,9 +1,9 @@
 """
 Legal Document Analyser
-MSc Thesis Project — AI-Powered Legal Analysis using RAG + LangChain + Claude
+MSc Thesis Project — AI-Powered Legal Analysis using RAG + LangChain + Groq
 
 Architecture:
-  PDF → Text Chunks → ChromaDB (vector store) → Retriever → Claude (via Anthropic API)
+  PDF → Text Chunks → ChromaDB (vector store) → Retriever → Groq (Llama 3.3, OpenAI-compatible API)
 
 Usage:
   python analyser.py --pdf path/to/contract.pdf
@@ -13,6 +13,7 @@ Usage:
 import os
 import argparse
 from pathlib import Path
+from dotenv import load_dotenv
 
 # --- LangChain imports ---
 from langchain_openai import ChatOpenAI
@@ -23,6 +24,8 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
+
+load_dotenv()
 
 
 # ─────────────────────────────────────────────
@@ -124,19 +127,21 @@ def build_rag_chain(vector_store: Chroma):
     """Build the RAG chain: retriever → prompt → Claude → output."""
 
     # Check for API key
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    api_key = os.environ.get("API_KEY")
     if not api_key:
         raise EnvironmentError(
-            "\n❌ ANTHROPIC_API_KEY not set.\n"
-            "   Get your key at: https://console.anthropic.com\n"
-            "   Then run: export ANTHROPIC_API_KEY='your-key-here'\n"
+            "\n❌ API_KEY not set.\n"
+            "   Get a free key at: https://console.groq.com/keys\n"
+            "   Then add it to a .env file: API_KEY='your-key-here'\n"
         )
 
-    # Claude as the LLM — swap from Ollama to ChatOpenAI
+    # Groq-hosted Llama model, via the OpenAI-compatible endpoint
     llm = ChatOpenAI(
-            model="gpt-4o",
+            model="llama-3.3-70b-versatile",
+            base_url="https://api.groq.com/openai/v1",
             temperature=0,
             max_tokens=2048,
+            api_key=api_key,
         )
 
     # Retriever: fetch top 4 most relevant chunks per query
@@ -176,7 +181,7 @@ def run_interactive(chain, pdf_name: str):
     print(f"""
 ╔══════════════════════════════════════════════════════╗
 ║          ⚖️  Legal Document Analyser                 ║
-║          Powered by RAG + LangChain + Claude         ║
+║          Powered by RAG + LangChain + Groq           ║
 ╠══════════════════════════════════════════════════════╣
 ║  Document: {pdf_name[:42]:<42} ║
 ╚══════════════════════════════════════════════════════╝
